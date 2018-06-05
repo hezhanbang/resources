@@ -4,6 +4,12 @@
 
 //cat ../264part-* > highProfile-level4.0-fp25-1920x1080-yuv420p-duration000405.264
 
+void writeSize(int len, FILE* out){
+	char t[20];
+	sprintf(t,"%d\n",len);
+	fwrite(&t[0],1,strlen(t),out);
+}
+
 int type1,type2,type3;
 
 void updateType(int newType){
@@ -21,6 +27,9 @@ bool isSpsPpsKey(){
 
 int main(){
 	printf("start...\n");
+
+	FILE* out=fopen("size.txt","wb+");
+
 	const char* file="highProfile-level4.0-fp25-1920x1080-yuv420p-duration000405.264";
 	FILE* fp=fopen(file,"rb");
 	if(!fp){
@@ -47,6 +56,7 @@ int main(){
 				count++;
 				len=cur - start;
 				printf("%d, found frame type=%d, %d %d\n", count, type3, start, len);
+				writeSize(len, out);
 				printf("good, now we are at the end of file\n");
 				return 0;
 			}
@@ -62,11 +72,13 @@ int main(){
 				len=cur - start - 5;
 				gotEnd=true;
 				printf("%d, found sps pps key, %d %d\n", count, start, len);
+				writeSize(len, out);
 			}else if(type3>0 && (7!=type3 && 8!=type3 && 5!=type3) ){
 				count++;
 				len=cur - start -5;
 				gotEnd=true;
 				printf("%d, found frame type=%d, %d %d\n", count, type3, start, len);
+				writeSize(len, out);
 			}
 			
 			unsigned int nalType = buf[4] & 0x1f;
