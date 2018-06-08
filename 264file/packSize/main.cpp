@@ -25,13 +25,16 @@ bool isSpsPpsKey(){
 	return false;
 }
 
-int main(){
-	printf("start...\n");
+int main(int argc,char *argv[]){
+	if(argc!=2){
+		printf("no filename arg\n");
+		return -50;
+	}
+	const char* sourceFile=argv[1];
+	printf("start...%s\n", sourceFile);
 
 	FILE* out=fopen("size.txt","wb+");
-
-	const char* file="highProfile-level4.0-fp25-1920x1080-yuv420p-duration000405.264";
-	FILE* fp=fopen(file,"rb");
+	FILE* fp=fopen(sourceFile,"rb");
 	if(!fp){
 		printf("no file\n");
 		return -1;
