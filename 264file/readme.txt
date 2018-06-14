@@ -5,7 +5,7 @@ split -b 10M ~/highProfile-level4.0-fp25-1920x1080-yuv420p-duration000405.264 26
 cat 264part-* > highProfile-level4.0-fp25-1920x1080-yuv420p-duration000405.264
 
 #find all frame type(I-frmae, P-frame or B-frame) in 264 file or mp4 file:
-ffprobe -show_frames videofilename.mp4 > frameInfo.txt
+ffprobe videofilename.mp4 -show_frames > frameInfo.txt
 
 #remove first byte in one file:
 tail -c +2 test.264 > noBframe.264  #"-2", copying data begin the second byte in the file.
