@@ -8,10 +8,10 @@ cat 264part-* > highProfile-level4.0-fp25-1920x1080-yuv420p-duration000405.264
 ffprobe -show_frames videofilename.mp4 > frameInfo.txt
 
 #remove first byte in one file:
-tail -c +2 test.264 > noPframe.264  #"-2", copying data begin the second byte in the file.
+tail -c +2 test.264 > noBframe.264  #"-2", copying data begin the second byte in the file.
 
-split -b 10M noPframe.264 noPframe-
-cat noPframe-* > noPframe.264
+split -b 10M noBframe.264 noBframe-
+cat noBframe-* > noBframe.264
 
 #generate fragmented mp4 file:
 ffmpeg -i wangXiaoMin.mp4 -strict experimental -vcodec copy -an -f mp4 -movflags frag_keyframe+empty_moov output.mp4
