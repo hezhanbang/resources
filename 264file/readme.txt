@@ -13,6 +13,7 @@ tail -c +2 test.264 > noBframe.264  #"-2", copying data begin the second byte in
 split -b 10M noBframe.264 noBframe-
 cat noBframe-* > noBframe.264
 
-#generate fragmented mp4 file:
-ffmpeg -i wangXiaoMin.mp4 -strict experimental -vcodec copy -an -f mp4 -movflags frag_keyframe+empty_moov output.mp4
+#generate fragment mp4 file (fMp4) from noBframe.264 file
+ffmpeg -framerate 25 -i noBframe.264 -c copy temp.mp4
+ffmpeg -i temp.mp4 -c copy -f mp4 -movflags frag_keyframe+empty_moov fragment.mp4
 
