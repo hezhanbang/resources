@@ -17,3 +17,7 @@ cat noBframe-* > noBframe.264
 ffmpeg -framerate 25 -i noBframe.264 -c copy temp.mp4
 ffmpeg -i temp.mp4 -c copy -f mp4 -movflags frag_keyframe+empty_moov fragment.mp4
 
+#generate fragment mp4 file (fMp4) from wangXiaoMin.mp4 file including video and audio
+# -frag 1000  --- duration of each fragemnt is 1000ms(millisecond)
+mp4box wangXiaoMin.mp4 -frag 1000 -out fragmentWangXiaoMin2.mp4
+
