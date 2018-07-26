@@ -1,0 +1,3 @@
+#local interface ens2f0, local port 36405, limit log file size up to 50MB, log file is tcp.dump
+tcpdump -i ens2f0 src port 36405 -C 50MB -w tcp.dump
+
